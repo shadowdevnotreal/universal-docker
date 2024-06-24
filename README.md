@@ -95,7 +95,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ### Final Steps
 
-- Ensure you replace `https://github.com/shadowdevnotreal/ChatConvert-Toolkit.git` with the actual URL of your GitHub repository.
+- Ensure you replace `https://github.com/shadowdevnotreal/universal-docker.git` with the actual URL of your GitHub repository.
 - Adjust any specific instructions or descriptions as needed based on your project's setup or requirements.
 - If you have not already, consider adding a `LICENSE` file to clearly communicate how others can use or contribute to your project.
 
