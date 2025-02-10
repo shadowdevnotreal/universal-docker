@@ -104,6 +104,6 @@ This `README` provides a comprehensive guide for users to get started, understan
 ---
 As always = TY 😊
 
-<a href="https://www.buymeacoffee.com/notarealdev">
+<a href="https://www.buymeacoffee.com/diatasso">
     <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a cat&emoji=🐈&slug=notarealdev&button_colour=9123cd&font_colour=ffffff&font_family=Bree&outline_colour=ffffff&coffee_colour=FFDD00" />
 </a>
