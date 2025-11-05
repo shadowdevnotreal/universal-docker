@@ -86,6 +86,38 @@
 
 ---
 
+## Phase 9: Interactive Docker Management
+*Easy menu for Docker operations*
+
+- [ ] Create interactive shell script menu for Docker management
+  - Start/stop Docker daemon
+  - Check Docker status
+  - View running containers
+  - List images
+  - Clean up unused resources (prune)
+  - View logs
+  - Restart Docker service
+- [ ] Make menu cross-platform (Linux/macOS compatible)
+- [ ] Add option to launch management menu from installer
+
+---
+
+## Phase 10: Lightweight Alternatives
+*Avoid memory hogs when possible*
+
+- [ ] Linux: Add Podman as alternative installation option
+  - Podman is daemonless (lighter than Docker)
+  - Docker-compatible CLI
+  - Runs containers without root
+- [ ] macOS: Consider adding Colima as alternative to Docker Desktop
+  - Colima uses Lima VM (lightweight)
+  - Much less resource usage than Docker Desktop
+  - Docker-compatible
+- [ ] Create option menu: "Docker Engine" vs "Podman" (Linux only)
+- [ ] Document resource differences between options
+
+---
+
 ## Won't Do (User Responsibility)
 *Things users should handle themselves*
 
@@ -123,3 +155,5 @@ Mark items with `[x]` as completed. Date completed phases below:
 - Phase 6: Not started
 - Phase 7: Not started
 - Phase 8: Not started
+- Phase 9: Not started (Interactive Docker Management)
+- Phase 10: Not started (Lightweight Alternatives)
