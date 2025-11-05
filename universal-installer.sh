@@ -1,6 +1,3 @@
-### Universal Installer Script
-
-```bash
 #!/bin/bash
 
 # Function to install Docker on Linux

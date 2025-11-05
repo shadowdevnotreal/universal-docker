@@ -1,6 +1,3 @@
-### Bash Script for macOS
-
-```bash
 #!/bin/bash
 
 echo "Downloading Docker Desktop for Mac..."
