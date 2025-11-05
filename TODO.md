@@ -14,13 +14,13 @@
 
 ---
 
-## Phase 2: Fix Critical Bugs
+## Phase 2: Fix Critical Bugs ✓
 *Address issues that cause failures*
 
-- [ ] Add `sudo` for macOS `/Applications` copy (line 13)
-- [ ] Clean up downloaded `get-docker.sh` after Linux installation
-- [ ] Add basic error handling with `set -euo pipefail` to all scripts
-- [ ] Fix install-docker-mac.sh to handle Intel vs Apple Silicon (or just tell user which to download)
+- [x] Add `sudo` for macOS `/Applications` copy (line 13)
+- [x] Clean up downloaded `get-docker.sh` after Linux installation
+- [x] Add basic error handling with `set -euo pipefail` to all scripts
+- [x] Fix install-docker-mac.sh to handle Intel vs Apple Silicon (or just tell user which to download)
 
 ---
 
@@ -116,7 +116,7 @@
 Mark items with `[x]` as completed. Date completed phases below:
 
 - Phase 1: ✓ Completed
-- Phase 2: Not started
+- Phase 2: ✓ Completed
 - Phase 3: Not started
 - Phase 4: Not started
 - Phase 5: Not started

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Function to install Docker on Linux
 install_linux() {

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Version tracking
 DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
@@ -17,6 +18,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 echo "Installing Docker Engine and CLI..."
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
+rm -f get-docker.sh
 
 # Install Docker Compose
 echo "Installing Docker Compose..."
