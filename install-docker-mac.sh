@@ -127,3 +127,25 @@ echo "  - Launch Docker Desktop from /Applications/Docker.app"
 echo "  - Docker Desktop will complete setup on first launch"
 echo "  - You may need to grant permissions in System Preferences"
 echo ""
+echo "🎉 NEW: Docker Manager Tool Available!"
+echo ""
+echo "We've included an easy-to-use management tool for Docker."
+echo "Perfect for beginners - no command line knowledge needed!"
+echo ""
+read -p "Would you like to launch Docker Manager now? (y/n): " launch_manager
+
+if [ "$launch_manager" = "y" ] || [ "$launch_manager" = "Y" ]; then
+    echo ""
+    if [ -f "./docker-manager.sh" ]; then
+        chmod +x ./docker-manager.sh
+        ./docker-manager.sh
+    else
+        echo "Note: docker-manager.sh not found in current directory."
+        echo "You can download it from the repository."
+    fi
+else
+    echo ""
+    echo "You can launch Docker Manager anytime by running:"
+    echo "  ./docker-manager.sh"
+    echo ""
+fi

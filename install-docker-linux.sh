@@ -5,6 +5,10 @@
 
 set -euo pipefail  # Exit on error, undefined variable, or pipe failure
 
+# Color codes for output
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 echo "========================================"
 echo "  Docker Engine Installer for Linux"
 echo "========================================"
@@ -147,3 +151,25 @@ echo "  - Add your user to the docker group: sudo usermod -aG docker \$USER"
 echo "  - Log out and back in for group changes to take effect"
 echo "  - Test Docker: docker run hello-world"
 echo ""
+echo -e "${GREEN}🎉 NEW: Docker Manager Tool Available!${NC}"
+echo ""
+echo "We've included an easy-to-use management tool for Docker."
+echo "Perfect for beginners - no command line knowledge needed!"
+echo ""
+read -p "Would you like to launch Docker Manager now? (y/n): " launch_manager
+
+if [ "$launch_manager" = "y" ] || [ "$launch_manager" = "Y" ]; then
+    echo ""
+    if [ -f "./docker-manager.sh" ]; then
+        chmod +x ./docker-manager.sh
+        ./docker-manager.sh
+    else
+        echo "Note: docker-manager.sh not found in current directory."
+        echo "You can download it from the repository."
+    fi
+else
+    echo ""
+    echo "You can launch Docker Manager anytime by running:"
+    echo "  ./docker-manager.sh"
+    echo ""
+fi

@@ -10,6 +10,22 @@ This repository contains scripts to automate the installation of Docker Desktop 
 - **macOS**: Automates the installation of Docker Desktop, which includes Docker Engine, Docker CLI, Docker Compose, Kubernetes, and Credential Helper.
 - **Windows**: Provides a script to install Docker Desktop for Windows users.
 
+## 🎉 NEW: Docker Manager - Easy Mode!
+
+Included is **Docker Manager**, an interactive menu-driven tool perfect for beginners! No need to memorize Docker commands.
+
+**Features:**
+- ✓ Start/Stop/Restart Docker with one click
+- ✓ Check Docker status visually
+- ✓ View and manage running containers
+- ✓ List Docker images
+- ✓ Clean up unused resources (free disk space!)
+- ✓ View container logs
+- ✓ Run test containers
+- ✓ Colorful, easy-to-read interface
+
+**To use:** Simply run `./docker-manager.sh` after installation!
+
 ## Prerequisites
 
 - **Linux**: A Debian-based distribution (like Ubuntu), `curl` installed.
