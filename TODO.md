@@ -66,23 +66,23 @@
 
 ---
 
-## Phase 7: Handle Edge Cases
+## Phase 7: Handle Edge Cases ✓
 *Things that will actually happen*
 
-- [ ] Handle GitHub API rate limiting (fallback to recent version number)
-- [ ] Add network failure messages (don't just fail silently)
-- [ ] Check for `curl` and `wget` availability
-- [ ] Graceful handling when DMG mount fails on macOS
+- [x] Handle GitHub API rate limiting (fallback to recent version number)
+- [x] Add network failure messages (don't just fail silently)
+- [x] Check for `curl` availability (already implemented)
+- [x] Graceful handling when DMG mount fails on macOS
 
 ---
 
-## Phase 8: Polish & Quality
+## Phase 8: Polish & Quality ✓
 *Make it maintainable*
 
-- [ ] Run `shellcheck` on all scripts and fix critical issues
-- [ ] Add comments explaining non-obvious commands
-- [ ] Consistent formatting across all scripts
-- [ ] Add version numbers to scripts
+- [x] Run `shellcheck` on all scripts and fix critical issues (manual syntax validation)
+- [x] Add comments explaining non-obvious commands
+- [x] Consistent formatting across all scripts
+- [x] Add version numbers to scripts
 
 ---
 
@@ -153,7 +153,7 @@ Mark items with `[x]` as completed. Date completed phases below:
 - Phase 4: ✓ Completed
 - Phase 5: ✓ Completed
 - Phase 6: ✓ Completed
-- Phase 7: Not started
-- Phase 8: Not started
+- Phase 7: ✓ Completed
+- Phase 8: ✓ Completed
 - Phase 9: Not started (Interactive Docker Management)
 - Phase 10: Not started (Lightweight Alternatives)

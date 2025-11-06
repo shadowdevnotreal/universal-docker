@@ -1,5 +1,9 @@
 #!/bin/bash
-set -euo pipefail
+# Universal Docker Installer - Linux Script
+# Version: 1.0.0
+# Installs Docker Engine, Docker CLI, and Docker Compose on Ubuntu/Debian systems
+
+set -euo pipefail  # Exit on error, undefined variable, or pipe failure
 
 echo "========================================"
 echo "  Docker Engine Installer for Linux"
@@ -31,8 +35,21 @@ if ! command -v curl &> /dev/null; then
     exit 1
 fi
 
-# Version tracking
+# Fetch latest Docker Compose version from GitHub API
+# Falls back to known version if API is unavailable (rate limiting or network issues)
+echo "Fetching latest Docker Compose version..."
 DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+
+# Handle API rate limiting or network failures
+if [ -z "$DOCKER_COMPOSE_VERSION" ]; then
+    echo "Note: Could not fetch latest version from GitHub API (rate limit or network issue)"
+    # Fallback to a recent known version (update this periodically)
+    DOCKER_COMPOSE_VERSION="v2.24.5"
+    echo "Using fallback version: $DOCKER_COMPOSE_VERSION"
+else
+    echo "Latest version: $DOCKER_COMPOSE_VERSION"
+fi
+echo ""
 
 # Check if the system is Ubuntu or Debian-based
 if ! lsb_release -a 2>/dev/null | grep -iqE 'Ubuntu|Debian'; then
@@ -82,10 +99,11 @@ if ! sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_
 fi
 
 # Download SHA256 checksum for verification
+# This ensures the downloaded binary hasn't been corrupted or tampered with
 echo "Verifying Docker Compose integrity..."
 COMPOSE_CHECKSUM_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m).sha256"
 if curl -sL "$COMPOSE_CHECKSUM_URL" -o /tmp/docker-compose.sha256 2>/dev/null; then
-    # Extract just the checksum (format may vary)
+    # Extract just the checksum (format: "hash  filename" or just "hash")
     EXPECTED_CHECKSUM=$(cat /tmp/docker-compose.sha256 | awk '{print $1}')
     ACTUAL_CHECKSUM=$(sha256sum /usr/local/bin/docker-compose | awk '{print $1}')
 

@@ -1,3 +1,7 @@
+# Universal Docker Installer - Windows Script
+# Version: 1.0.0
+# Installs Docker Desktop on Windows 10/11
+
 # Docker Desktop for Windows - System Requirements Check
 Write-Host "======================================" -ForegroundColor Cyan
 Write-Host "Docker Desktop System Requirements" -ForegroundColor Cyan
