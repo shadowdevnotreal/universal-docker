@@ -1,6 +1,31 @@
 #!/bin/bash
 set -euo pipefail
 
+# Check if Docker is already installed
+if command -v docker &> /dev/null; then
+    echo "Docker is already installed:"
+    docker --version
+    echo ""
+    read -p "Do you want to continue anyway? This may overwrite your current installation (y/n): " response
+    case $response in
+        [Yy]*) echo "Continuing with installation...";;
+        *) echo "Installation aborted."; exit 0;;
+    esac
+fi
+
+# Check for sudo privileges
+if ! sudo -n true 2>/dev/null; then
+    echo "This script requires sudo privileges."
+    echo "You may be prompted for your password."
+fi
+
+# Check for required tools
+if ! command -v curl &> /dev/null; then
+    echo "ERROR: curl is not installed. Please install curl first."
+    echo "Run: sudo apt-get install curl"
+    exit 1
+fi
+
 # Version tracking
 DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
 
