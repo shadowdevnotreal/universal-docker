@@ -1,12 +1,6 @@
-![Screenshot_20240304_200921_Gallery](https://github.com/shadowdevnotreal/universal-docker/assets/43219706/da74af2f-5612-45c9-aa71-e67d15f93be9)
-
-## Support FOSS future development - Simping for donations here 👇
-
-<a href="https://www.buymeacoffee.com/diatasso" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Book" style="height: 40px !important;width: 145px !important;" ></a>
-
----
-
 # Universal Docker Installer
+
+![Screenshot_20240304_200921_Gallery](https://github.com/shadowdevnotreal/universal-docker/assets/43219706/da74af2f-5612-45c9-aa71-e67d15f93be9)
 
 This repository contains scripts to automate the installation of Docker Desktop and Docker Engine across multiple operating systems including Linux, macOS, and Windows. The goal is to provide a seamless installation experience for Docker technologies regardless of the user's operating system.
 
@@ -36,7 +30,7 @@ git clone https://github.com/shadowdevnotreal/universal-docker.git
 3. Navigate to the cloned directory:
 
 ```bash
-cd universal-docker-installer
+cd universal-docker
 ```
 
 4. Make the universal installer script executable:
@@ -60,7 +54,7 @@ The script will detect your operating system and prompt you to confirm the insta
 3. Download the PowerShell installation script:
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/<your-username>/universal-docker-installer/main/install-docker-windows.ps1" -OutFile "install-docker-windows.ps1"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/shadowdevnotreal/universal-docker/main/install-docker-windows.ps1" -OutFile "install-docker-windows.ps1"
 ```
 
 4. Run the script:
@@ -69,9 +63,15 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/<your-username>/univer
 .\install-docker-windows.ps1
 ```
 
-Please ensure you've met all the prerequisites for your operating system before running the installation scripts.
+Please ensure you've met all the prerequisites for your operating system before running the installation scripts. The scripts will perform safety checks and guide you through the installation process.
 
-**Contribution**
+**Note**: All scripts now include:
+- Automatic detection of existing Docker installations
+- System prerequisite validation
+- Clear error messages and recovery instructions
+- Step-by-step progress indicators
+
+## Contribution
 - Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
 - Any contributions you make are **greatly appreciated.**
 
@@ -82,26 +82,19 @@ Please ensure you've met all the prerequisites for your operating system before 
 5. Open a Pull Request
 
 ## Feedback and Support
-For support, feedback, or suggestions, please open an issue.
 
-Contributions to the ChatConvert Toolkit are welcome. Please feel free to fork the repository, make your changes, and submit a pull request.
+For support, feedback, or suggestions, please open an issue on the GitHub repository.
 
-**License**
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-
-### Final Steps
-
-- Ensure you replace `https://github.com/shadowdevnotreal/universal-docker.git` with the actual URL of your GitHub repository.
-- Adjust any specific instructions or descriptions as needed based on your project's setup or requirements.
-- If you have not already, consider adding a `LICENSE` file to clearly communicate how others can use or contribute to your project.
-
-This `README` provides a comprehensive guide for users to get started, understand its features, and know how to contribute.
-
 ---
-As always = TY 😊
 
-<a href="https://www.buymeacoffee.com/diatasso">
-    <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a cat&emoji=🐈&slug=notarealdev&button_colour=9123cd&font_colour=ffffff&font_family=Bree&outline_colour=ffffff&coffee_colour=FFDD00" />
+## Support This Project
+
+If you find this project helpful, consider supporting future development:
+
+<a href="https://www.buymeacoffee.com/diatasso" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 145px !important;" >
 </a>
