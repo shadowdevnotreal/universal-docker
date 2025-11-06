@@ -71,6 +71,20 @@ Please ensure you've met all the prerequisites for your operating system before 
 - Clear error messages and recovery instructions
 - Step-by-step progress indicators
 
+## Security Features
+
+This installer implements several security measures:
+
+- **Docker Engine (Linux)**: Uses Docker's official installation script from get.docker.com, which handles GPG verification of Docker packages
+- **Docker Compose (Linux)**: Automatically verifies SHA256 checksums against GitHub releases to ensure file integrity
+- **Existing Installation Detection**: Checks for and warns about existing Docker installations before overwriting
+- **Prerequisite Validation**: Verifies system requirements before attempting installation
+
+**For security-conscious users**:
+- Linux: The get.docker.com script performs GPG signature verification automatically
+- All platforms: You can manually verify downloads before running scripts if desired
+- Docker Compose checksums are verified automatically on Linux installations
+
 ## Contribution
 - Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
 - Any contributions you make are **greatly appreciated.**

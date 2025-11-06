@@ -64,6 +64,8 @@ if ! curl -fsSL https://get.docker.com -o get-docker.sh; then
     echo "Please check your internet connection and try again."
     exit 1
 fi
+# Note: Docker's official get.docker.sh script handles GPG verification of packages
+# Security-conscious users can manually inspect get-docker.sh before running
 sudo sh get-docker.sh
 rm -f get-docker.sh
 echo "✓ Docker Engine installed"
@@ -71,11 +73,46 @@ echo ""
 
 # Install Docker Compose
 echo "[Step 3/3] Installing Docker Compose (version ${DOCKER_COMPOSE_VERSION})..."
+
+# Download Docker Compose binary
 if ! sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; then
     echo "ERROR: Failed to download Docker Compose."
     echo "Docker Engine was installed successfully, but Docker Compose installation failed."
     exit 1
 fi
+
+# Download SHA256 checksum for verification
+echo "Verifying Docker Compose integrity..."
+COMPOSE_CHECKSUM_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m).sha256"
+if curl -sL "$COMPOSE_CHECKSUM_URL" -o /tmp/docker-compose.sha256 2>/dev/null; then
+    # Extract just the checksum (format may vary)
+    EXPECTED_CHECKSUM=$(cat /tmp/docker-compose.sha256 | awk '{print $1}')
+    ACTUAL_CHECKSUM=$(sha256sum /usr/local/bin/docker-compose | awk '{print $1}')
+
+    if [ "$EXPECTED_CHECKSUM" = "$ACTUAL_CHECKSUM" ]; then
+        echo "✓ Docker Compose integrity verified"
+    else
+        echo "WARNING: Docker Compose checksum verification failed!"
+        echo "Expected: $EXPECTED_CHECKSUM"
+        echo "Got: $ACTUAL_CHECKSUM"
+        echo "The download may be corrupted or tampered with."
+        read -p "Do you want to continue anyway? (y/n): " response
+        case $response in
+            [Yy]*) echo "Continuing despite checksum mismatch...";;
+            *)
+                sudo rm /usr/local/bin/docker-compose
+                rm -f /tmp/docker-compose.sha256
+                echo "Installation aborted for security."
+                exit 1
+                ;;
+        esac
+    fi
+    rm -f /tmp/docker-compose.sha256
+else
+    echo "Note: Could not verify Docker Compose checksum (checksum file not available)"
+    echo "Proceeding with installation..."
+fi
+
 sudo chmod +x /usr/local/bin/docker-compose
 echo "✓ Docker Compose installed"
 echo ""
