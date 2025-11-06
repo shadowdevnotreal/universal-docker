@@ -102,19 +102,17 @@
 
 ---
 
-## Phase 10: Lightweight Alternatives
+## Phase 10: Lightweight Alternatives ✓
 *Avoid memory hogs when possible*
 
-- [ ] Linux: Add Podman as alternative installation option
+- [x] Linux: Add Podman as alternative installation option
   - Podman is daemonless (lighter than Docker)
   - Docker-compatible CLI
   - Runs containers without root
-- [ ] macOS: Consider adding Colima as alternative to Docker Desktop
-  - Colima uses Lima VM (lightweight)
-  - Much less resource usage than Docker Desktop
-  - Docker-compatible
-- [ ] Create option menu: "Docker Engine" vs "Podman" (Linux only)
-- [ ] Document resource differences between options
+- [x] Create option menu: "Docker Engine" vs "Podman" (Linux only)
+- [x] Update docker-manager.sh (v2.0) to support both Docker and Podman
+- [x] Document resource differences between options
+- [-] macOS: Colima support (skipped - out of scope, Docker Desktop works fine)
 
 ---
 
@@ -156,4 +154,4 @@ Mark items with `[x]` as completed. Date completed phases below:
 - Phase 7: ✓ Completed
 - Phase 8: ✓ Completed
 - Phase 9: ✓ Completed (Interactive Docker Management)
-- Phase 10: Not started (Lightweight Alternatives)
+- Phase 10: ✓ Completed (Lightweight Alternatives - Podman Support)

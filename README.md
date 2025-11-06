@@ -6,25 +6,45 @@ This repository contains scripts to automate the installation of Docker Desktop 
 
 ## What This Tool Does
 
-- **Linux**: Installs Docker Engine, Docker CLI, and Docker Compose.
+- **Linux**: Choose between Docker Engine or Podman (lightweight alternative)
+  - Docker Engine: Traditional, industry-standard container runtime
+  - Podman: Daemonless, rootless, more secure - perfect for development
 - **macOS**: Automates the installation of Docker Desktop, which includes Docker Engine, Docker CLI, Docker Compose, Kubernetes, and Credential Helper.
 - **Windows**: Provides a script to install Docker Desktop for Windows users.
 
-## 🎉 NEW: Docker Manager - Easy Mode!
+## 🎉 NEW: Container Manager - Easy Mode!
 
-Included is **Docker Manager**, an interactive menu-driven tool perfect for beginners! No need to memorize Docker commands.
+Included is **Container Manager**, an interactive menu-driven tool perfect for beginners! Works with both Docker and Podman - no need to memorize commands.
 
 **Features:**
-- ✓ Start/Stop/Restart Docker with one click
-- ✓ Check Docker status visually
+- ✓ Auto-detects Docker or Podman
+- ✓ Start/Stop/Restart containers with one click
+- ✓ Check status visually (daemonless for Podman!)
 - ✓ View and manage running containers
-- ✓ List Docker images
+- ✓ List container images
 - ✓ Clean up unused resources (free disk space!)
 - ✓ View container logs
 - ✓ Run test containers
 - ✓ Colorful, easy-to-read interface
 
 **To use:** Simply run `./docker-manager.sh` after installation!
+
+## Docker vs Podman - Which Should You Choose?
+
+**Choose Docker if:**
+- You need maximum compatibility with existing tools
+- You're deploying to production environments
+- You need Docker Compose for complex multi-container apps
+- You want the most widely-used, industry-standard solution
+
+**Choose Podman if:**
+- You want better security (rootless by default)
+- You want to save system resources (no background daemon)
+- You're developing or testing locally
+- You want Docker-compatible commands without the memory overhead
+- You prefer open-source solutions without corporate backing
+
+**Note:** Podman commands are Docker-compatible. Most `docker` commands work by just replacing `docker` with `podman`!
 
 ## Prerequisites
 

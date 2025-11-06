@@ -64,12 +64,29 @@ fi
 
 echo "✓ System check passed"
 echo ""
-echo "This script will:"
-echo "  1. Update your system packages"
-echo "  2. Install Docker Engine and CLI"
-echo "  3. Install Docker Compose"
+echo "Choose your container runtime:"
 echo ""
-read -p "Press Enter to continue or Ctrl+C to cancel..."
+echo "  1. Docker Engine (traditional, most compatible)"
+echo "     - Industry standard"
+echo "     - Requires daemon running in background"
+echo "     - Full Docker Compose support"
+echo ""
+echo "  2. Podman (lightweight, daemonless)"
+echo "     - No background daemon (uses less resources)"
+echo "     - Rootless containers by default (more secure)"
+echo "     - Docker-compatible commands"
+echo "     - Great for development and testing"
+echo ""
+read -p "Enter your choice (1 or 2): " runtime_choice
+echo ""
+
+if [ "$runtime_choice" = "2" ]; then
+    INSTALL_PODMAN=true
+    echo "Installing Podman..."
+else
+    INSTALL_PODMAN=false
+    echo "Installing Docker Engine..."
+fi
 echo ""
 
 # Update the system
@@ -78,79 +95,136 @@ sudo apt-get update && sudo apt-get upgrade -y
 echo "✓ System updated"
 echo ""
 
-# Install Docker Engine & CLI
-echo "[Step 2/3] Installing Docker Engine and CLI..."
-if ! curl -fsSL https://get.docker.com -o get-docker.sh; then
-    echo "ERROR: Failed to download Docker installation script."
-    echo "Please check your internet connection and try again."
-    exit 1
-fi
-# Note: Docker's official get.docker.sh script handles GPG verification of packages
-# Security-conscious users can manually inspect get-docker.sh before running
-sudo sh get-docker.sh
-rm -f get-docker.sh
-echo "✓ Docker Engine installed"
-echo ""
+if [ "$INSTALL_PODMAN" = true ]; then
+    # Install Podman
+    echo "[Step 2/3] Installing Podman..."
+    if ! sudo apt-get install -y podman; then
+        echo "ERROR: Failed to install Podman from apt."
+        echo "Trying alternative method..."
 
-# Install Docker Compose
-echo "[Step 3/3] Installing Docker Compose (version ${DOCKER_COMPOSE_VERSION})..."
-
-# Download Docker Compose binary
-if ! sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; then
-    echo "ERROR: Failed to download Docker Compose."
-    echo "Docker Engine was installed successfully, but Docker Compose installation failed."
-    exit 1
-fi
-
-# Download SHA256 checksum for verification
-# This ensures the downloaded binary hasn't been corrupted or tampered with
-echo "Verifying Docker Compose integrity..."
-COMPOSE_CHECKSUM_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m).sha256"
-if curl -sL "$COMPOSE_CHECKSUM_URL" -o /tmp/docker-compose.sha256 2>/dev/null; then
-    # Extract just the checksum (format: "hash  filename" or just "hash")
-    EXPECTED_CHECKSUM=$(cat /tmp/docker-compose.sha256 | awk '{print $1}')
-    ACTUAL_CHECKSUM=$(sha256sum /usr/local/bin/docker-compose | awk '{print $1}')
-
-    if [ "$EXPECTED_CHECKSUM" = "$ACTUAL_CHECKSUM" ]; then
-        echo "✓ Docker Compose integrity verified"
-    else
-        echo "WARNING: Docker Compose checksum verification failed!"
-        echo "Expected: $EXPECTED_CHECKSUM"
-        echo "Got: $ACTUAL_CHECKSUM"
-        echo "The download may be corrupted or tampered with."
-        read -p "Do you want to continue anyway? (y/n): " response
-        case $response in
-            [Yy]*) echo "Continuing despite checksum mismatch...";;
-            *)
-                sudo rm /usr/local/bin/docker-compose
-                rm -f /tmp/docker-compose.sha256
-                echo "Installation aborted for security."
-                exit 1
-                ;;
-        esac
+        # Try adding repository for newer Podman version
+        echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_$(lsb_release -rs)/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+        curl -L "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_$(lsb_release -rs)/Release.key" | sudo apt-key add -
+        sudo apt-get update
+        sudo apt-get install -y podman
     fi
-    rm -f /tmp/docker-compose.sha256
+    echo "✓ Podman installed"
+    echo ""
+
+    # Setup Docker compatibility
+    echo "[Step 3/3] Setting up Docker compatibility..."
+
+    # Create docker alias for podman
+    if ! grep -q "alias docker='podman'" ~/.bashrc; then
+        echo "alias docker='podman'" >> ~/.bashrc
+        echo "alias docker-compose='podman-compose'" >> ~/.bashrc
+    fi
+
+    # Try to install podman-compose
+    echo "Installing podman-compose for Docker Compose compatibility..."
+    if command -v pip3 &> /dev/null; then
+        pip3 install --user podman-compose
+        echo "✓ podman-compose installed"
+    else
+        echo "Note: pip3 not found. You can install podman-compose later with:"
+        echo "  sudo apt-get install python3-pip"
+        echo "  pip3 install podman-compose"
+    fi
+
+    echo "✓ Docker compatibility configured"
+    echo ""
+
+    echo "========================================"
+    echo "  Installation Complete!"
+    echo "========================================"
+    echo ""
+    podman --version
+    echo ""
+    echo "Podman is installed! It's Docker-compatible:"
+    echo "  - Use 'podman' command (or 'docker' alias after restarting terminal)"
+    echo "  - No daemon needed - containers start on demand"
+    echo "  - Rootless by default - more secure"
+    echo ""
+    echo "Quick Start:"
+    echo "  - Test Podman: podman run hello-world"
+    echo "  - Restart your terminal to use 'docker' alias"
+    echo ""
+
 else
-    echo "Note: Could not verify Docker Compose checksum (checksum file not available)"
-    echo "Proceeding with installation..."
+    # Install Docker Engine & CLI
+    echo "[Step 2/3] Installing Docker Engine and CLI..."
+    if ! curl -fsSL https://get.docker.com -o get-docker.sh; then
+        echo "ERROR: Failed to download Docker installation script."
+        echo "Please check your internet connection and try again."
+        exit 1
+    fi
+    # Note: Docker's official get.docker.sh script handles GPG verification of packages
+    # Security-conscious users can manually inspect get-docker.sh before running
+    sudo sh get-docker.sh
+    rm -f get-docker.sh
+    echo "✓ Docker Engine installed"
+    echo ""
+
+    # Install Docker Compose
+    echo "[Step 3/3] Installing Docker Compose (version ${DOCKER_COMPOSE_VERSION})..."
+
+    # Download Docker Compose binary
+    if ! sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; then
+        echo "ERROR: Failed to download Docker Compose."
+        echo "Docker Engine was installed successfully, but Docker Compose installation failed."
+        exit 1
+    fi
+
+    # Download SHA256 checksum for verification
+    # This ensures the downloaded binary hasn't been corrupted or tampered with
+    echo "Verifying Docker Compose integrity..."
+    COMPOSE_CHECKSUM_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m).sha256"
+    if curl -sL "$COMPOSE_CHECKSUM_URL" -o /tmp/docker-compose.sha256 2>/dev/null; then
+        # Extract just the checksum (format: "hash  filename" or just "hash")
+        EXPECTED_CHECKSUM=$(cat /tmp/docker-compose.sha256 | awk '{print $1}')
+        ACTUAL_CHECKSUM=$(sha256sum /usr/local/bin/docker-compose | awk '{print $1}')
+
+        if [ "$EXPECTED_CHECKSUM" = "$ACTUAL_CHECKSUM" ]; then
+            echo "✓ Docker Compose integrity verified"
+        else
+            echo "WARNING: Docker Compose checksum verification failed!"
+            echo "Expected: $EXPECTED_CHECKSUM"
+            echo "Got: $ACTUAL_CHECKSUM"
+            echo "The download may be corrupted or tampered with."
+            read -p "Do you want to continue anyway? (y/n): " response
+            case $response in
+                [Yy]*) echo "Continuing despite checksum mismatch...";;
+                *)
+                    sudo rm /usr/local/bin/docker-compose
+                    rm -f /tmp/docker-compose.sha256
+                    echo "Installation aborted for security."
+                    exit 1
+                    ;;
+            esac
+        fi
+        rm -f /tmp/docker-compose.sha256
+    else
+        echo "Note: Could not verify Docker Compose checksum (checksum file not available)"
+        echo "Proceeding with installation..."
+    fi
+
+    sudo chmod +x /usr/local/bin/docker-compose
+    echo "✓ Docker Compose installed"
+    echo ""
+
+    echo "========================================"
+    echo "  Installation Complete!"
+    echo "========================================"
+    echo ""
+    docker --version
+    docker-compose --version
+    echo ""
+    echo "Next steps:"
+    echo "  - Add your user to the docker group: sudo usermod -aG docker \$USER"
+    echo "  - Log out and back in for group changes to take effect"
+    echo "  - Test Docker: docker run hello-world"
+    echo ""
 fi
-
-sudo chmod +x /usr/local/bin/docker-compose
-echo "✓ Docker Compose installed"
-echo ""
-
-echo "========================================"
-echo "  Installation Complete!"
-echo "========================================"
-echo ""
-docker --version
-docker-compose --version
-echo ""
-echo "Next steps:"
-echo "  - Add your user to the docker group: sudo usermod -aG docker \$USER"
-echo "  - Log out and back in for group changes to take effect"
-echo "  - Test Docker: docker run hello-world"
-echo ""
 echo -e "${GREEN}🎉 NEW: Docker Manager Tool Available!${NC}"
 echo ""
 echo "We've included an easy-to-use management tool for Docker."
