@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "========================================"
+echo "  Docker Desktop Installer for macOS"
+echo "========================================"
+echo ""
+
 # Check if Docker is already installed
 if command -v docker &> /dev/null; then
     echo "Docker is already installed:"
@@ -24,7 +29,7 @@ if [ "$MACOS_MAJOR" -lt 10 ] || ([ "$MACOS_MAJOR" -eq 10 ] && [ "$MACOS_MINOR" -
     exit 1
 fi
 
-echo "macOS version: $MACOS_VERSION ✓"
+echo "✓ macOS version: $MACOS_VERSION (compatible)"
 
 # Check for required tools
 if ! command -v curl &> /dev/null; then
@@ -35,10 +40,10 @@ fi
 # Detect architecture
 ARCH=$(uname -m)
 if [ "$ARCH" = "arm64" ]; then
-    echo "Detected Apple Silicon (M1/M2/M3)"
+    echo "✓ Detected Apple Silicon (M1/M2/M3)"
     DOCKER_URL="https://desktop.docker.com/mac/main/arm64/Docker.dmg"
 elif [ "$ARCH" = "x86_64" ]; then
-    echo "Detected Intel processor"
+    echo "✓ Detected Intel processor"
     DOCKER_URL="https://desktop.docker.com/mac/main/amd64/Docker.dmg"
 else
     echo "ERROR: Unknown architecture: $ARCH"
@@ -46,17 +51,58 @@ else
     exit 1
 fi
 
-echo "Downloading Docker Desktop for Mac..."
-curl -L "$DOCKER_URL" -o ~/Downloads/Docker.dmg
+echo ""
+echo "This script will:"
+echo "  1. Download Docker Desktop for Mac (~500MB)"
+echo "  2. Mount the disk image"
+echo "  3. Install Docker Desktop to /Applications"
+echo "  4. Clean up temporary files"
+echo ""
+read -p "Press Enter to continue or Ctrl+C to cancel..."
+echo ""
 
-echo "Mounting Docker.dmg..."
-hdiutil attach ~/Downloads/Docker.dmg
+echo "[Step 1/4] Downloading Docker Desktop for Mac..."
+echo "This may take several minutes depending on your connection..."
+if ! curl -L "$DOCKER_URL" -o ~/Downloads/Docker.dmg; then
+    echo "ERROR: Failed to download Docker Desktop."
+    echo "Please check your internet connection and try again."
+    exit 1
+fi
+echo "✓ Download complete"
+echo ""
 
-echo "Installing Docker Desktop..."
-sudo cp -R /Volumes/Docker/Docker.app /Applications
+echo "[Step 2/4] Mounting Docker.dmg..."
+if ! hdiutil attach ~/Downloads/Docker.dmg; then
+    echo "ERROR: Failed to mount Docker.dmg"
+    rm ~/Downloads/Docker.dmg
+    exit 1
+fi
+echo "✓ Disk image mounted"
+echo ""
 
-echo "Cleanup..."
+echo "[Step 3/4] Installing Docker Desktop to /Applications..."
+echo "(This requires admin privileges - you may be prompted for your password)"
+if ! sudo cp -R /Volumes/Docker/Docker.app /Applications; then
+    echo "ERROR: Failed to copy Docker.app to /Applications"
+    hdiutil detach /Volumes/Docker
+    rm ~/Downloads/Docker.dmg
+    exit 1
+fi
+echo "✓ Docker Desktop installed"
+echo ""
+
+echo "[Step 4/4] Cleaning up..."
 hdiutil detach /Volumes/Docker
 rm ~/Downloads/Docker.dmg
+echo "✓ Cleanup complete"
+echo ""
 
-echo "Docker Desktop installed successfully."
+echo "========================================"
+echo "  Installation Complete!"
+echo "========================================"
+echo ""
+echo "Next steps:"
+echo "  - Launch Docker Desktop from /Applications/Docker.app"
+echo "  - Docker Desktop will complete setup on first launch"
+echo "  - You may need to grant permissions in System Preferences"
+echo ""
