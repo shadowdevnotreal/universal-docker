@@ -1,7 +1,9 @@
-### Universal Installer Script
-
-```bash
 #!/bin/bash
+# Universal Docker Installer - Main Entry Point
+# Version: 1.0.0
+# Detects OS and routes to appropriate platform-specific installer
+
+set -euo pipefail  # Exit on error, undefined variable, or pipe failure
 
 # Function to install Docker on Linux
 install_linux() {
