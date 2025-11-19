@@ -1,8 +1,8 @@
-# Universal Docker Installer
-
 <div align="center">
 
-![Docker Logo](https://github.com/shadowdevnotreal/universal-docker/assets/43219706/da74af2f-5612-45c9-aa71-e67d15f93be9)
+# 🐳 Universal Docker
+
+### One-click Docker/Podman installer, manager, and packager for everyone
 
 [![GitHub stars](https://img.shields.io/github/stars/shadowdevnotreal/universal-docker?style=social)](https://github.com/shadowdevnotreal/universal-docker/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/shadowdevnotreal/universal-docker?style=social)](https://github.com/shadowdevnotreal/universal-docker/network/members)
@@ -13,9 +13,21 @@
 [![Shell Script](https://img.shields.io/badge/Shell_Script-Bash-green.svg)](https://www.gnu.org/software/bash/)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue.svg)](https://docs.microsoft.com/en-us/powershell/)
 
-**One-click container setup for everyone** 🚀
+[Get Started](#-quick-start) • [Three Tools](#-what-you-get) • [Wiki](WIKI.md) • [Support](#-support)
 
-[Get Started](#-quick-start) • [Features](#-what-you-get) • [Wiki](WIKI.md) • [Support](#-support)
+</div>
+
+---
+
+## ⚡ Why Universal Docker?
+
+<div align="center">
+
+🎯 **Install Docker/Podman in one command** - No confusing steps, no tech knowledge needed
+📦 **Turn your app into a container** - Auto-generate production-ready Dockerfiles
+🎨 **Manage containers with menus** - No commands to memorize, just pick numbers
+🔒 **Secure by default** - Best practices built into everything
+🚀 **Cross-platform** - Works on Linux, macOS, and Windows
 
 </div>
 
@@ -35,100 +47,175 @@ Installing Docker or Podman can be confusing. Multiple operating systems, differ
 
 ---
 
-## ✨ What You Get
+## ✨ Three Powerful Tools
 
-### 🤖 Automatic Installation
-- **Linux**: Choose Docker or Podman (your pick!)
-- **macOS**: Docker Desktop installed automatically
-- **Windows**: Docker Desktop with simple setup
+<div align="center">
 
-### 📦 Container Manager Tool
-**NEW!** A beautiful menu that anyone can use:
+| 🤖 Universal Installer | 🎨 Container Manager | 📦 Docker Packager |
+|:---:|:---:|:---:|
+| **One-command setup** | **Visual interface** | **Auto-generate Dockerfiles** |
+| Install Docker/Podman | Manage containers with menus | Turn apps into containers |
+| Linux, macOS, Windows | No CLI commands needed | Zero Docker knowledge required |
+| `./universal-installer.sh` | `./docker-manager.sh` | `./docker-packager.sh` |
+
+</div>
+
+---
+
+### 🤖 Tool 1: Universal Installer
+
+**The Problem:** Installing Docker is confusing - different steps for each OS, complicated commands, unclear errors.
+
+**The Solution:** One script that handles everything for you.
+
+```bash
+# Linux & Mac
+./universal-installer.sh
+
+# Windows (PowerShell Admin)
+.\install-docker-windows.ps1
+```
+
+**What It Does:**
+- ✅ Detects your operating system automatically
+- ✅ Installs Docker OR Podman (you choose on Linux!)
+- ✅ Verifies installation works correctly
+- ✅ Sets up everything needed to run containers
+- ✅ Shows clear progress messages
+
+**Platforms:** Linux, macOS, Windows
+
+---
+
+### 🎨 Tool 2: Container Manager
+
+**The Problem:** Docker CLI commands are hard to remember - `docker ps -a`, `docker system prune -a`, etc.
+
+**The Solution:** A beautiful interactive menu - just pick numbers!
 
 ```
-========================================
-   Container Manager - Easy Mode 🐳
-========================================
+═══════════════════════════════════════════
+   🐳 Container Manager - Easy Mode
+═══════════════════════════════════════════
 
 ● Docker is running
-Running containers: 2
+📊 Running containers: 2
 
 What would you like to do?
 
-  1. Check status
-  2. Start Docker
-  3. Stop Docker
-  ... and more!
+  1. 📊 Check status
+  2. ▶️  Start Docker
+  3. ⏹️  Stop Docker
+  4. 📋 List containers
+  5. 🧹 Cleanup unused data
+  6. 📝 View logs
+  7. ❌ Exit
 ```
 
-**No commands to memorize!** Just pick a number and go.
+**What It Does:**
+- ✅ Check Docker/Podman status
+- ✅ Start/stop container runtime
+- ✅ List and manage containers
+- ✅ View container logs
+- ✅ Free up disk space
+- ✅ No commands to memorize!
 
-### 📦 Docker Packager Tool
-**NEW!** Turn your apps into Docker containers with zero Docker knowledge:
+**Supports:** Docker and Podman
+
+---
+
+### 📦 Tool 3: Docker Packager **NEW!**
+
+**The Problem:** Creating Dockerfiles requires Docker expertise - base images, multi-stage builds, security hardening...
+
+**The Solution:** Auto-generate production-ready Dockerfiles with best practices built-in!
 
 ```
-========================================
-   Docker/Podman Application Packager
-========================================
+═══════════════════════════════════════════
+   📦 Docker/Podman Application Packager
+═══════════════════════════════════════════
 
 ✓ Detected: Node.js (found package.json)
 
 What would you like to do?
 
-  1. Create Dockerfile (Interactive)
-  2. Build & Test Container
-  3. Generate Docker Compose
-  4. Show Project Info
-  5. Exit
+  1. 📝 Create Dockerfile (Interactive)
+  2. 🏗️  Build & Test Container
+  3. 📋 Generate Docker Compose
+  4. ℹ️  Show Project Info
+  5. ❌ Exit
 ```
 
-**Features:**
-- 🎯 **Auto-detects** your project type (Node.js, Python, Go, Static)
-- 📝 **Creates Dockerfiles** with best practices built-in
-- 🏗️ **Builds & tests** your container automatically
+**What It Does:**
+- 🎯 **Auto-detects** project type (Node.js, Python, Go, Static HTML)
+- 📝 **Generates Dockerfile** - Multi-stage builds, non-root users, health checks
+- 📄 **Creates .dockerignore** - Keeps secrets and junk out of your images
+- 🏗️ **Builds & tests** - One command to containerize your app
+- 📋 **Docker Compose** - Add PostgreSQL, Redis, MongoDB with one click
 - 🐳 **Works with Docker AND Podman** seamlessly
-- 🔒 **Secure by default** (non-root users, health checks)
-- 💨 **Multi-stage builds** for tiny images
+- 💨 **Tiny images** - 50-80% smaller with multi-stage builds
+- 🔒 **Secure by default** - Non-root users (UID 1001), security best practices
 
-**Just run:** `./docker-packager.sh` in your project folder!
+**Quick Example:**
+```bash
+cd my-nodejs-app
+./docker-packager.sh
+# Select 1: Create Dockerfile
+# Answer 2 questions (port, entry command)
+# Done! Production-ready Dockerfile created
+```
 
-### 🛡️ Built-In Safety
-- ✅ Checks if Docker is already installed
-- ✅ Verifies your system is compatible
-- ✅ Shows you what will happen before doing it
-- ✅ Clean error messages if something goes wrong
+**Supported Languages:**
+- **Node.js** - Detects `package.json`, uses Alpine Linux, npm ci
+- **Python** - Detects `requirements.txt`, uses slim images, pip install
+- **Go** - Detects `go.mod`, creates tiny static binaries
+- **Static Sites** - Detects `index.html`, uses nginx
+
+---
+
+### 🛡️ Built-In Safety (All Tools)
+
+- ✅ Checks prerequisites before running
+- ✅ Verifies system compatibility
+- ✅ Shows what will happen before doing it
+- ✅ Clear error messages with solutions
+- ✅ Never runs destructive commands without asking
 
 ---
 
 ## 🚀 Quick Start
 
-### Linux & Mac Users
+### 🐧 Linux & macOS
 
-**Step 1:** Open your terminal (it's usually in Applications/Utilities on Mac)
-
-**Step 2:** Copy and paste this:
 ```bash
+# Clone the repository
 git clone https://github.com/shadowdevnotreal/universal-docker.git
 cd universal-docker
+
+# Make installer executable and run it
 chmod +x universal-installer.sh
 ./universal-installer.sh
+
+# After installation, try the Container Manager
+./docker-manager.sh
+
+# Or package your app with Docker Packager
+cd your-project
+/path/to/docker-packager.sh
 ```
 
-**Step 3:** Follow the prompts - the script will guide you!
+### 🪟 Windows
 
-### Windows Users
-
-**Step 1:** Right-click the Windows button and select "PowerShell (Admin)"
-
-**Step 2:** Copy and paste this:
 ```powershell
+# Open PowerShell as Administrator, then run:
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/shadowdevnotreal/universal-docker/main/install-docker-windows.ps1" -OutFile "install-docker-windows.ps1"
 .\install-docker-windows.ps1
+
+# Follow the on-screen instructions
+# After installation, Docker Desktop will be ready!
 ```
 
-**Step 3:** Follow the on-screen instructions!
-
-> 💡 **Tip:** After installation, use the Container Manager tool - just run `./docker-manager.sh`
+> 💡 **First time with containers?** Start with the Installer → try the Manager → then explore the Packager!
 
 ---
 
@@ -167,94 +254,46 @@ Think of it as the **efficient kid** at school.
 
 ## 🎨 Features at a Glance
 
-| Feature | Description |
-|---------|-------------|
-| 🌐 **Cross-Platform** | Works on Linux, macOS, and Windows |
-| 🎨 **Interactive Menus** | Colorful, easy-to-read interface |
-| 🔒 **Security Checks** | Verifies downloads automatically |
-| 📊 **Status Display** | See what's running at a glance |
-| 🧹 **Cleanup Tools** | Free up disk space easily |
-| 📝 **View Logs** | See what your containers are doing |
-| ⚡ **Fast Setup** | Get running in minutes |
-| 💬 **Helpful Messages** | Clear instructions every step |
+<div align="center">
+
+| Feature | Description | Available In |
+|---------|-------------|:------------:|
+| 🌐 **Cross-Platform** | Works on Linux, macOS, and Windows | Installer |
+| 🎨 **Interactive Menus** | Colorful, easy-to-read interface | All Tools |
+| 🔒 **Security Best Practices** | Non-root users, health checks, verified downloads | All Tools |
+| 📊 **Status Display** | See what's running at a glance | Manager |
+| 📦 **Auto-Detection** | Identifies your project type automatically | Packager |
+| 🏗️ **Multi-Stage Builds** | 50-80% smaller Docker images | Packager |
+| 🧹 **Cleanup Tools** | Free up disk space easily | Manager |
+| 📝 **View Logs** | See what your containers are doing | Manager |
+| ⚡ **Fast Setup** | Get running in minutes | Installer |
+| 💬 **Helpful Messages** | Clear instructions every step | All Tools |
+
+</div>
 
 ---
 
 ## 🎥 What Happens During Installation?
 
-1. **System Check** - We verify your computer meets requirements
-2. **Your Choice** - Pick Docker or Podman (Linux only)
-3. **Download** - We get the latest official version
-4. **Install** - Everything is set up automatically
-5. **Verify** - We test that it works
-6. **Ready!** - You get the Container Manager tool
+<div align="center">
+
+```
+Step 1: 🔍 System Check
+        ↓
+Step 2: 🎯 Your Choice (Docker or Podman on Linux)
+        ↓
+Step 3: 📥 Download (latest official version)
+        ↓
+Step 4: ⚙️  Install (automated setup)
+        ↓
+Step 5: ✅ Verify (test that it works)
+        ↓
+Step 6: 🎉 Ready! (Container Manager tool available)
+```
 
 **Takes about 5-10 minutes** depending on your internet speed.
 
----
-
-## 📦 Using the Docker Packager
-
-Once Docker or Podman is installed, you can easily package your applications into containers!
-
-### Quick Example: Dockerize a Node.js App
-
-```bash
-# Navigate to your project
-cd my-awesome-app
-
-# Run the packager
-./docker-packager.sh
-
-# Select option 1: Create Dockerfile
-# Answer a few questions (port, entry command)
-# Done! Dockerfile and .dockerignore created
-
-# Select option 2: Build & Test
-# Your app is now in a container!
-```
-
-### Supported Project Types
-
-| Type | Detection | What It Creates |
-|------|-----------|-----------------|
-| **Node.js** | package.json | Multi-stage Dockerfile with npm ci |
-| **Python** | requirements.txt, pyproject.toml | Multi-stage with pip |
-| **Go** | go.mod | Multi-stage with CGO_ENABLED=0 |
-| **Static** | index.html | nginx-based static server |
-
-### What Gets Generated
-
-#### Dockerfile Features
-✅ Multi-stage builds (50-80% smaller images)
-✅ Non-root user (UID 1001)
-✅ Health checks
-✅ Layer optimization for fast rebuilds
-✅ Security best practices
-
-#### .dockerignore
-Automatically excludes:
-- `node_modules/`, `venv/`, etc.
-- `.git/`, `.env` files
-- Build artifacts
-- Logs and temporary files
-
-#### docker-compose.yml (Optional)
-Choose from:
-- PostgreSQL database
-- Redis cache
-- MongoDB
-- Complete networking setup
-- Volume configuration
-
-### Prerequisites Check
-
-The packager automatically checks for:
-- Docker or Podman (required)
-- docker-compose / podman-compose (for compose generation)
-- Standard Unix tools (sed, grep, awk)
-
-If anything is missing, you'll get clear installation instructions!
+</div>
 
 ---
 
@@ -306,16 +345,20 @@ Love this project? Here's how you can help:
 
 ---
 
-## 📖 Project History
+## 📖 Project Evolution
 
-This project started as a simple Docker installer but grew into something much bigger:
+<div align="center">
 
-- **Phase 1-8**: Core installation scripts with safety features
-- **Phase 9**: Container Manager - the game-changing interactive tool
-- **Phase 10**: Podman support - lightweight Docker alternative
-- **Phase 11**: Docker Packager - turn your apps into containers with zero Docker knowledge
+| Phase | Tool | What It Does |
+|:-----:|------|--------------|
+| 🔧 **Phase 1-8** | Universal Installer | Cross-platform Docker/Podman installation |
+| 🎨 **Phase 9** | Container Manager | Interactive menu-driven container management |
+| 🐳 **Phase 10** | Podman Support | Lightweight, rootless container alternative |
+| 📦 **Phase 11** | Docker Packager | **NEW!** Auto-generate production-ready Dockerfiles |
 
-**Today**: A complete container setup and packaging solution trusted by developers worldwide!
+**From installer to complete toolkit** - trusted by developers worldwide! 🌍
+
+</div>
 
 ---
 
