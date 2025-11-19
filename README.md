@@ -2,7 +2,8 @@
 
 <div align="center">
 
-![Docker Logo](https://github.com/shadowdevnotreal/universal-docker/assets/43219706/da74af2f-5612-45c9-aa71-e67d15f93be9)
+<img width="1024" height="1024" alt="ChatGPT Image Nov 19, 2025, 02_09_14 PM" src="https://github.com/user-attachments/assets/363b9a14-6154-4dcf-9311-9e27c62427ef" />
+
 
 [![GitHub stars](https://img.shields.io/github/stars/shadowdevnotreal/universal-docker?style=social)](https://github.com/shadowdevnotreal/universal-docker/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/shadowdevnotreal/universal-docker?style=social)](https://github.com/shadowdevnotreal/universal-docker/network/members)
