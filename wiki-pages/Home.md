@@ -21,6 +21,7 @@ This wiki provides comprehensive technical documentation for the Universal Docke
 
 ### 🛠️ Tools & Components
 - **[Container Manager](Container-Manager)** - Interactive management tool details
+- **[Docker Packager](Docker-Packager)** - Application packaging tool (NEW!)
 - **[Script Specifications](Script-Specifications)** - Error handling, logging, and conventions
 
 ### 🔧 Maintenance & Development
@@ -42,8 +43,10 @@ universal-docker/
 ├── install-docker-mac.sh       # macOS-specific installer
 ├── install-docker-windows.ps1  # Windows-specific installer
 ├── docker-manager.sh           # Interactive container management tool (v2.0)
+├── docker-packager.sh          # Application packager tool (v1.0) NEW!
 ├── README.md                   # User-friendly documentation
 ├── TODO.md                     # Development roadmap
+├── wiki-pages/                 # Technical wiki (you're reading this!)
 └── LICENSE                     # MIT License
 ```
 

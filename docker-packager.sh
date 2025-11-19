@@ -73,6 +73,77 @@ check_runtime_installed() {
 }
 
 # ============================================================================
+# PREREQUISITE CHECKS
+# ============================================================================
+
+check_prerequisites() {
+    local missing_deps=()
+    local optional_deps=()
+
+    # Critical dependencies
+    if ! command -v bash &> /dev/null; then
+        missing_deps+=("bash")
+    fi
+
+    # Check for docker-compose or podman-compose if using those runtimes
+    if [ "$RUNTIME" = "docker" ]; then
+        if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null 2>&1; then
+            optional_deps+=("docker-compose (for Option 3: Generate Docker Compose)")
+        fi
+    elif [ "$RUNTIME" = "podman" ]; then
+        if ! command -v podman-compose &> /dev/null; then
+            optional_deps+=("podman-compose (for Option 3: Generate Docker Compose)")
+        fi
+    fi
+
+    # Check for common utilities (most should be pre-installed)
+    for cmd in sed grep awk basename pwd; do
+        if ! command -v "$cmd" &> /dev/null; then
+            missing_deps+=("$cmd")
+        fi
+    done
+
+    # Report missing critical dependencies
+    if [ ${#missing_deps[@]} -gt 0 ]; then
+        echo -e "${RED}❌ Missing required dependencies:${NC}"
+        for dep in "${missing_deps[@]}"; do
+            echo "  • $dep"
+        done
+        echo ""
+        echo "Please install missing dependencies using your package manager:"
+        echo "  • Ubuntu/Debian: sudo apt-get install ${missing_deps[*]}"
+        echo "  • macOS: brew install ${missing_deps[*]}"
+        echo ""
+        exit 1
+    fi
+
+    # Report optional dependencies
+    if [ ${#optional_deps[@]} -gt 0 ]; then
+        echo -e "${YELLOW}ℹ️  Optional dependencies not found:${NC}"
+        for dep in "${optional_deps[@]}"; do
+            echo "  • $dep"
+        done
+        echo ""
+        echo "These are optional - core functionality will work without them."
+        echo ""
+    fi
+}
+
+check_compose_available() {
+    # Check if docker-compose/podman-compose is available
+    if [ "$RUNTIME" = "docker" ]; then
+        if command -v docker-compose &> /dev/null || docker compose version &> /dev/null 2>&1; then
+            return 0
+        fi
+    elif [ "$RUNTIME" = "podman" ]; then
+        if command -v podman-compose &> /dev/null; then
+            return 0
+        fi
+    fi
+    return 1
+}
+
+# ============================================================================
 # PROJECT TYPE DETECTION
 # ============================================================================
 
@@ -641,6 +712,28 @@ generate_compose() {
     echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
     echo ""
 
+    # Check if compose is available
+    if ! check_compose_available; then
+        echo -e "${YELLOW}⚠️  docker-compose/podman-compose not found${NC}"
+        echo ""
+        echo "To use this feature, install:"
+        if [ "$RUNTIME" = "docker" ]; then
+            echo "  • Docker Compose: sudo apt-get install docker-compose"
+            echo "  • Or use Docker Compose v2: already bundled with Docker Desktop"
+        else
+            echo "  • Podman Compose: pip3 install podman-compose"
+        fi
+        echo ""
+        echo "You can still create docker-compose.yml manually, but you won't be able to run it."
+        echo ""
+        read -p "Continue anyway? (y/n): " continue_anyway
+        if [[ ! $continue_anyway =~ ^[Yy]$ ]]; then
+            read -p "Press Enter to return to menu..."
+            return
+        fi
+        echo ""
+    fi
+
     # Check if docker-compose.yml exists
     if [ -f "docker-compose.yml" ]; then
         echo -e "${YELLOW}⚠️  docker-compose.yml already exists!${NC}"
@@ -836,6 +929,9 @@ main() {
     # Detect runtime on startup
     detect_runtime
     check_runtime_installed
+
+    # Check prerequisites
+    check_prerequisites
 
     # Main menu loop
     while true; do
