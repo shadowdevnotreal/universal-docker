@@ -63,6 +63,35 @@ What would you like to do?
 
 **No commands to memorize!** Just pick a number and go.
 
+### 📦 Docker Packager Tool
+**NEW!** Turn your apps into Docker containers with zero Docker knowledge:
+
+```
+========================================
+   Docker/Podman Application Packager
+========================================
+
+✓ Detected: Node.js (found package.json)
+
+What would you like to do?
+
+  1. Create Dockerfile (Interactive)
+  2. Build & Test Container
+  3. Generate Docker Compose
+  4. Show Project Info
+  5. Exit
+```
+
+**Features:**
+- 🎯 **Auto-detects** your project type (Node.js, Python, Go, Static)
+- 📝 **Creates Dockerfiles** with best practices built-in
+- 🏗️ **Builds & tests** your container automatically
+- 🐳 **Works with Docker AND Podman** seamlessly
+- 🔒 **Secure by default** (non-root users, health checks)
+- 💨 **Multi-stage builds** for tiny images
+
+**Just run:** `./docker-packager.sh` in your project folder!
+
 ### 🛡️ Built-In Safety
 - ✅ Checks if Docker is already installed
 - ✅ Verifies your system is compatible
@@ -164,6 +193,71 @@ Think of it as the **efficient kid** at school.
 
 ---
 
+## 📦 Using the Docker Packager
+
+Once Docker or Podman is installed, you can easily package your applications into containers!
+
+### Quick Example: Dockerize a Node.js App
+
+```bash
+# Navigate to your project
+cd my-awesome-app
+
+# Run the packager
+./docker-packager.sh
+
+# Select option 1: Create Dockerfile
+# Answer a few questions (port, entry command)
+# Done! Dockerfile and .dockerignore created
+
+# Select option 2: Build & Test
+# Your app is now in a container!
+```
+
+### Supported Project Types
+
+| Type | Detection | What It Creates |
+|------|-----------|-----------------|
+| **Node.js** | package.json | Multi-stage Dockerfile with npm ci |
+| **Python** | requirements.txt, pyproject.toml | Multi-stage with pip |
+| **Go** | go.mod | Multi-stage with CGO_ENABLED=0 |
+| **Static** | index.html | nginx-based static server |
+
+### What Gets Generated
+
+#### Dockerfile Features
+✅ Multi-stage builds (50-80% smaller images)
+✅ Non-root user (UID 1001)
+✅ Health checks
+✅ Layer optimization for fast rebuilds
+✅ Security best practices
+
+#### .dockerignore
+Automatically excludes:
+- `node_modules/`, `venv/`, etc.
+- `.git/`, `.env` files
+- Build artifacts
+- Logs and temporary files
+
+#### docker-compose.yml (Optional)
+Choose from:
+- PostgreSQL database
+- Redis cache
+- MongoDB
+- Complete networking setup
+- Volume configuration
+
+### Prerequisites Check
+
+The packager automatically checks for:
+- Docker or Podman (required)
+- docker-compose / podman-compose (for compose generation)
+- Standard Unix tools (sed, grep, awk)
+
+If anything is missing, you'll get clear installation instructions!
+
+---
+
 ## 💡 Common Questions
 
 <details>
@@ -218,9 +312,10 @@ This project started as a simple Docker installer but grew into something much b
 
 - **Phase 1-8**: Core installation scripts with safety features
 - **Phase 9**: Container Manager - the game-changing interactive tool
-- **Phase 10**: Podman support for lightweight containers
+- **Phase 10**: Podman support - lightweight Docker alternative
+- **Phase 11**: Docker Packager - turn your apps into containers with zero Docker knowledge
 
-**Today**: A complete container setup solution trusted by developers worldwide!
+**Today**: A complete container setup and packaging solution trusted by developers worldwide!
 
 ---
 
