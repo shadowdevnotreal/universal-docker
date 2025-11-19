@@ -1,5 +1,7 @@
 <div align="center">
 
+<img width="512" alt="Universal Docker Logo" src="https://github.com/user-attachments/assets/363b9a14-6154-4dcf-9311-9e27c62427ef" />
+
 # 🐳 Universal Docker
 
 ### One-click Docker/Podman installer, manager, and packager for everyone
