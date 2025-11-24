@@ -172,8 +172,8 @@ uninstall_podman_mac() {
 # Main uninstaller function
 main() {
     echo -e "${RED}========================================"
-    echo "  Docker/Podman Uninstaller"
-    echo "========================================${NC}"
+    echo -e "  Docker/Podman Uninstaller"
+    echo -e "========================================${NC}"
     echo ""
 
     # Detect what's installed
