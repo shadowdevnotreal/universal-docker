@@ -1,6 +1,7 @@
 <div align="center">
 
-<img width="512" alt="Universal Docker Logo" src="https://github.com/user-attachments/assets/363b9a14-6154-4dcf-9311-9e27c62427ef" />
+![Universal-docker](https://github.com/user-attachments/assets/a34aa24d-a1bf-4d30-a3cb-2379c04b5794)
+
 
 # 🐳 Universal Docker
 
